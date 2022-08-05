@@ -2,6 +2,8 @@ package routes
 
 import (
 	"errors"
+	"fmt"
+	"regexp"
 	"time"
 	"web-api/database"
 	"web-api/models"
@@ -26,6 +28,12 @@ func CreateCar(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&car); err != nil {
 		return c.Status(400).JSON(err.Error())
+	}
+
+	match, _ := regexp.MatchString("[ABCDEFGHJKLMNPRSTVWXYZ]{2}[0-9]{3}[ABCDEFGHJKLMNPRSTVWXYZ]{2}", car.Plate)
+
+	if match == false {
+		return c.Status(400).JSON("Plate is not valid")
 	}
 
 	var user models.User
