@@ -3,6 +3,7 @@ package database
 import (
 	"log"
 	"os"
+	"web-api/models"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -25,6 +26,9 @@ func ConnectDb() {
 
 	log.Println("Connected Successfully to Database")
 	db.Logger = logger.Default.LogMode(logger.Info)
+
+	log.Print("Creating Database Tables...")
+	db.AutoMigrate(&models.User{}, &models.Car{})
 
 	Database = DbInstance{
 		Db: db,
