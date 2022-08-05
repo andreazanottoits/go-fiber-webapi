@@ -7,6 +7,6 @@ type Car struct {
 	ProducedAt time.Time
 	Model  string `json:"model"`
 	Color   string `json:"color"`
-	OwnerRefer uint `json:"owner_refer"`
+	OwnerRefer int `json:"owner_refer"`
 	Owner User `json:"owner" gorm:"foreignKey:OwnerRefer"`
 }
